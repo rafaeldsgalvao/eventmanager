@@ -62,7 +62,7 @@ public class EventServiceImpl implements EventService {
         Event event = repository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));
 
-        repository.delete(event); // Soft delete via @SQLDelete
+        repository.delete(event);
     }
 
     private EventResponseDTO toResponseDTO(Event event) {
