@@ -1,0 +1,8 @@
+<h2>Lista de Eventos</h2>
+<ul>
+  @for (event of events; track event.id) {
+    <li>
+      {{ event.title }} - {{ event.eventDate }}
+    </li>
+  }
+</ul>
