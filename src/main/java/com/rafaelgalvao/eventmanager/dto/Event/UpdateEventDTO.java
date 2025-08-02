@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
-public record CreateEventDTO(
+public record UpdateEventDTO(
 
         @NotBlank
         @Size(max = 100)
