@@ -40,8 +40,8 @@ Certifique-se de ter instalado:
 ### 1. Clonar o repositório
 
 ```bash
-git clone git@github.com:rafaeldsgalvao/eventmanager-api.git
-cd eventmanager-api
+git clone git@github.com:rafaeldsgalvao/eventmanager.git
+cd eventmanager
 ```
 
 ### 2. Compilar o projeto
