@@ -13,6 +13,8 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=none
     depends_on:
       - db
+    networks:
+      - eventmanager_network
 
   db:
     image: postgres:15
@@ -26,6 +28,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - eventmanager_network
 
 volumes:
   postgres_data:
+
+networks:
+  eventmanager_network:
+    name: eventmanager_network
