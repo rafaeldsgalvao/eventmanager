@@ -37,13 +37,17 @@ export class EventCreateModal {
     eventDate: '',
   };
   isSaving = false;
-  today: Date = new Date();
+  tomorrow: Date;
+  validationErrors: any = {};
 
   constructor(
     private dialogRef: MatDialogRef<EventCreateModal>,
     private eventService: EventService,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.tomorrow = new Date();
+    this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+  }
 
   isFormValid(): boolean {
     return !!this.event.title && !!this.event.location && !!this.event.eventDate;
@@ -51,7 +55,11 @@ export class EventCreateModal {
 
   save() {
     if (!this.isFormValid()) {
-      this.snackBar.open('Preencha todos os campos obrigatórios.', 'Fechar', { duration: 3000 });
+      this.snackBar.open('Preencha todos os campos obrigatórios.', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+      });
       return;
     }
 
@@ -61,12 +69,18 @@ export class EventCreateModal {
         setTimeout(() => {
           this.isSaving = false;
           this.dialogRef.close(response);
-          this.snackBar.open('Evento criado com sucesso!', 'Fechar', { duration: 4000 });
+          this.snackBar.open('Evento criado com sucesso!', 'Fechar', {
+            duration: 4000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
         }, 900);
       },
       error: (error) => {
         this.isSaving = false;
-        this.snackBar.open('Erro ao criar evento: ' + error.message, 'Fechar', { duration: 4000 });
+        if (error.error) {
+          this.validationErrors = error.error;
+        }
       }
     });
   }

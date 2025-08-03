@@ -112,8 +112,12 @@ export class EventList {
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.eventService.delete(event.id).subscribe(() => {
-          this.snackBar.open('Evento excluído com sucesso.', 'Fechar', { duration: 3000 });
-          this.ngOnInit?.(); // ou atualize a lista manualmente
+          this.snackBar.open('Evento excluído com sucesso.', 'Fechar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
+          this.ngOnInit?.();
         });
       }
     });

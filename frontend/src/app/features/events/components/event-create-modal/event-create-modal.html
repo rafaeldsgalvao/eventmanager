@@ -13,7 +13,15 @@
 
     <mat-form-field appearance="fill" class="half-width">
       <mat-label>Data</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="event.eventDate" [min]="today" required />
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="event.eventDate"
+        name="eventDate"
+        [min]="tomorrow"
+        required
+        readonly
+      />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>

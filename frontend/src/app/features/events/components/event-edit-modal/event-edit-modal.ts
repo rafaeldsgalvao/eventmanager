@@ -47,7 +47,11 @@ export class EventEditModal {
 
   save() {
     if (!this.isFormValid()) {
-      this.snackBar.open('Preencha todos os campos obrigatórios.', 'Fechar', { duration: 3000 });
+      this.snackBar.open('Preencha todos os campos obrigatórios.', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+      });
       return;
     }
 
@@ -57,12 +61,20 @@ export class EventEditModal {
         setTimeout(() => {
           this.isSaving = false;
           this.dialogRef.close(response);
-          this.snackBar.open('Evento salvo com sucesso!', 'Fechar', { duration: 4000 });
+          this.snackBar.open('Evento salvo com sucesso!', 'Fechar', {
+            duration: 4000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
         }, 900);
       },
       error: (error) => {
         this.isSaving = false;
-        this.snackBar.open('Erro ao salvar evento: ' + error.eventDate, 'Fechar', { duration: 40000 });
+        this.snackBar.open('Erro ao salvar evento: ' + error.eventDate, 'Fechar', {
+          duration: 40000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        });
       }
     });
   }
