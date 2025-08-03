@@ -1,6 +1,6 @@
 <div class="acoes-topo header-listagem">
   <h2 class="titulo-pagina">Listagem de Eventos</h2>
-  <button mat-raised-button color="primary" routerLink="/events/new">
+  <button mat-raised-button color="primary" (click)="createEvent()">
     <mat-icon>add</mat-icon> Novo Evento
   </button>
 </div>
@@ -8,13 +8,11 @@
 <div class="card-tabela">
   <table mat-table [dataSource]="events" class="full-width-table mat-elevation-z2">
 
-    <!-- Título -->
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>Título</th>
       <td mat-cell *matCellDef="let event">{{ event.title }}</td>
     </ng-container>
 
-    <!-- Data -->
     <ng-container matColumnDef="eventDate">
       <th mat-header-cell *matHeaderCellDef>Data</th>
       <td mat-cell *matCellDef="let event">
@@ -22,13 +20,11 @@
       </td>
     </ng-container>
 
-    <!-- Local -->
     <ng-container matColumnDef="location">
       <th mat-header-cell *matHeaderCellDef>Local</th>
       <td mat-cell *matCellDef="let event">{{ event.location }}</td>
     </ng-container>
 
-    <!-- Ações -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Ações</th>
       <td mat-cell *matCellDef="let event">
@@ -37,6 +33,9 @@
         </button>
         <button mat-icon-button color="primary" (click)="editEvent(event)">
           <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="delete-button" (click)="confirmDelete(event)">
+          <mat-icon>delete</mat-icon>
         </button>
       </td>
     </ng-container>

@@ -1,0 +1,26 @@
+::ng-deep .mat-dialog-container {
+  border-top: 5px solid #d32f2f;
+}
+
+.modal-title-warn {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.btn-excluir {
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+.btn-excluir:hover {
+  background-color: #b71c1c;
+}
+
+.btn-cancelar {
+  background-color: #a5d6a7;
+  color: #1b5e20;
+}
+
+.btn-cancelar:hover {
+  background-color: #81c784;
+}
