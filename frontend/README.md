@@ -1,59 +1,134 @@
-# Frontend
+# 📅 EventManager - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
+Interface web desenvolvida em **Angular 20** para gerenciamento de eventos, com foco em experiência fluida, validações interativas e design responsivo utilizando **Angular Material**.
 
-## Development server
+## 🔧 Tecnologias e ferramentas
 
-To start a local development server, run:
+- [Angular 20+](https://angular.io/)
+- [Angular Material](https://material.angular.io/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [SCSS](https://sass-lang.com/)
+- Modularização com `core`, `shared` e `features`
+- Comunicação com API via `HttpClient`
+- Internacionalização `pt-BR` para datas
+- Feedback visual com `MatSnackBar`
+- CRUD completo com:
+  - Listagem paginada
+  - Modal de criação e edição
+  - Modal de confirmação de exclusão
+
+---
+
+## ▶️ Como executar localmente
+
+### Pré-requisitos
+
+- Node.js 18+
+- Angular CLI instalado globalmente
+
+```bash
+npm install -g @angular/cli
+```
+
+### Instalação
+
+```bash
+git clone https://github.com/rafaeldsgalvao/eventmanager.git
+cd eventmanager/frontend
+npm install
+```
+
+### Executando localmente
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Abra [http://localhost:4200](http://localhost:4200) no navegador.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📂 Estrutura do Projeto
 
 ```bash
-ng generate --help
+frontend/
+├── core/              # Serviços e modelos globais (ex: EventService, EventModel)
+├── shared/            # Componentes reutilizáveis e helpers (ex: formatos de data)
+├── features/          # Componentes principais (listagem, modais, etc.)
+│   └── events/
+│       ├── event-list/          # Tabela com listagem dos eventos
+│       ├── event-edit-modal/   # Modal de edição de evento
+│       └── event-create-modal/ # Modal de criação de novo evento
+├── app.config.ts      # Configurações do projeto (locale, DateAdapter)
+└── app.routes.ts      # Definição das rotas principais
 ```
 
-## Building
+---
 
-To build the project run:
+## ✅ Funcionalidades
+
+### 📋 Listagem de eventos
+
+- Tabela responsiva com colunas:
+  - Título
+  - Data formatada (`dd/MM/yyyy`)
+  - Local
+  - Ações (ver detalhes, editar, excluir)
+- Paginação automática
+- Cores alternadas entre linhas
+- Botões com ícones e destaque visual
+
+### ✏️ Criar e Editar Evento
+
+- Abertura via `MatDialog`
+- Formulário com validações:
+  - Todos os campos obrigatórios
+  - Data não pode ser anterior a amanhã
+- Spinner de carregamento ao salvar
+- Feedback visual no topo direito da tela
+
+### ❌ Excluir Evento
+
+- Modal de confirmação customizado com:
+  - Cor vermelha de alerta
+  - Ações de “Cancelar” e “Excluir”
+
+---
+
+## 🌐 Integração com Backend
+
+As requisições são feitas para:
+
+```
+GET    /api/events
+POST   /api/events
+PUT    /api/events/:id
+DELETE /api/events/:id
+```
+
+Certifique-se de que o backend esteja acessível na mesma origem (`http://localhost:8080` por padrão) ou ajuste as configurações de CORS e proxy se necessário.
+
+---
+
+## 📦 Build para Produção
 
 ```bash
-ng build
+ng build --configuration=production
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Os arquivos serão gerados na pasta `dist/`. Você pode servir via nginx, Docker, etc.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## ✨ Melhorias Futuras
 
-```bash
-ng test
-```
+- Filtro e busca por título ou local
+- Responsividade avançada para mobile
+- Migração para `ReactiveFormsModule`
+- Internacionalização completa (i18n)
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🧑‍💻 Autor
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Desenvolvido por Rafael Galvão

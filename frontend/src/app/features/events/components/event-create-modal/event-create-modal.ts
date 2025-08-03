@@ -4,7 +4,7 @@ import {EventModel, EventService} from '../../../../core/services/event';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +15,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -29,13 +29,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   styleUrl: './event-create-modal.scss'
 })
 export class EventCreateModal {
-  event: EventModel = {
-    id: 0,
-    title: '',
-    location: '',
-    description: '',
-    eventDate: '',
-  };
+  eventForm: FormGroup;
   isSaving = false;
   tomorrow: Date;
   validationErrors: any = {};
@@ -43,14 +37,22 @@ export class EventCreateModal {
   constructor(
     private dialogRef: MatDialogRef<EventCreateModal>,
     private eventService: EventService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private fb: FormBuilder
   ) {
     this.tomorrow = new Date();
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+
+    this.eventForm = this.fb.group({
+      title: ['', Validators.required],
+      location: ['', Validators.required],
+      eventDate: ['', Validators.required],
+      description: ['']
+    });
   }
 
   isFormValid(): boolean {
-    return !!this.event.title && !!this.event.location && !!this.event.eventDate;
+    return this.eventForm.valid;
   }
 
   save() {
@@ -64,7 +66,7 @@ export class EventCreateModal {
     }
 
     this.isSaving = true;
-    this.eventService.create(this.event).subscribe({
+    this.eventService.create(this.eventForm.value).subscribe({
       next: (response) => {
         setTimeout(() => {
           this.isSaving = false;

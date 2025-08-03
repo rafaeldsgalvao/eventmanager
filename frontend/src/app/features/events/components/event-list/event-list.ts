@@ -8,7 +8,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
-import {RouterLink} from '@angular/router';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {EventDetailModal} from '../event-detail-modal/event-detail-modal';
 import {EventEditModal} from '../event-edit-modal/event-edit-modal';
@@ -26,7 +25,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    RouterLink,
     MatDialogModule
   ],
   templateUrl: './event-list.html',

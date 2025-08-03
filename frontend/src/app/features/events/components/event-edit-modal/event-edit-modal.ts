@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -14,7 +14,7 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
   selector: 'app-event-edit-modal',
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -28,7 +28,7 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
   styleUrl: './event-edit-modal.scss'
 })
 export class EventEditModal {
-  event: EventModel;
+  form: FormGroup;
   isSaving = false;
   today: Date = new Date();
 
@@ -36,13 +36,19 @@ export class EventEditModal {
     @Inject(MAT_DIALOG_DATA) public data: EventModel,
     private dialogRef: MatDialogRef<EventEditModal>,
     private eventService: EventService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private fb: FormBuilder
   ) {
-    this.event = { ...data };
+    this.form = this.fb.group({
+      title: [data.title || '', Validators.required],
+      location: [data.location || '', Validators.required],
+      eventDate: [data.eventDate || '', Validators.required],
+      description: [data.description || '']
+    });
   }
 
   isFormValid(): boolean {
-    return !!this.event.title && !!this.event.location && !!this.event.eventDate;
+    return this.form.valid;
   }
 
   save() {
@@ -56,7 +62,7 @@ export class EventEditModal {
     }
 
     this.isSaving = true;
-    this.eventService.update(this.event.id, this.event).subscribe({
+    this.eventService.update(this.data.id, this.form.value).subscribe({
       next: (response) => {
         setTimeout(() => {
           this.isSaving = false;

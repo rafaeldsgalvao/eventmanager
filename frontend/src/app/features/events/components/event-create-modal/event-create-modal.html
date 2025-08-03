@@ -1,14 +1,14 @@
 <h2 mat-dialog-title>Novo Evento</h2>
-<mat-dialog-content>
+<mat-dialog-content [formGroup]="eventForm">
   <div class="row">
     <mat-form-field appearance="fill" class="half-width">
       <mat-label>Título</mat-label>
-      <input matInput [(ngModel)]="event.title" name="title" required />
+      <input matInput formControlName="title" required />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="half-width">
       <mat-label>Local</mat-label>
-      <input matInput [(ngModel)]="event.location" name="location" required />
+      <input matInput formControlName="location" required />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="half-width">
@@ -16,8 +16,7 @@
       <input
         matInput
         [matDatepicker]="picker"
-        [(ngModel)]="event.eventDate"
-        name="eventDate"
+        formControlName="eventDate"
         [min]="tomorrow"
         required
         readonly
@@ -30,7 +29,7 @@
   <div class="row">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Descrição</mat-label>
-      <textarea matInput rows="3" [(ngModel)]="event.description"></textarea>
+      <textarea matInput rows="3" formControlName="description"></textarea>
     </mat-form-field>
   </div>
 </mat-dialog-content>
