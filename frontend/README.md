@@ -124,8 +124,6 @@ Os arquivos serão gerados na pasta `dist/`. Você pode servir via nginx, Docker
 
 - Filtro e busca por título ou local
 - Responsividade avançada para mobile
-- Migração para `ReactiveFormsModule`
-- Internacionalização completa (i18n)
 
 ---
 
