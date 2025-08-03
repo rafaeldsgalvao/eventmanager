@@ -6,11 +6,11 @@ import {EventModel} from '../../../../core/services/event';
 import {MatButton} from '@angular/material/button';
 
 @Component({
-  selector: 'app-event-detail',
+  selector: 'app-event-detail-modal',
   imports: [CommonModule, MatDialogModule, MatCardModule, MatButton],
-  templateUrl: './event-detail.html',
-  styleUrl: './event-detail.scss'
+  templateUrl: './event-detail-modal.html',
+  styleUrl: './event-detail-modal.scss'
 })
-export class EventDetail {
+export class EventDetailModal {
   constructor(@Inject(MAT_DIALOG_DATA) public event: EventModel) {}
 }

@@ -10,7 +10,8 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {RouterLink} from '@angular/router';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import {EventDetail} from '../event-detail/event-detail';
+import {EventDetailModal} from '../event-detail-modal/event-detail-modal';
+import {EventEditModal} from '../event-edit-modal/event-edit-modal';
 
 @Component({
   selector: 'app-event-list',
@@ -33,7 +34,6 @@ export class EventList {
   dataSource = new MatTableDataSource<EventModel>();
   events: EventModel[] = [];
 
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -48,10 +48,40 @@ export class EventList {
       this.dataSource.sort = this.sort;
     });
   }
+
   openDetails(event: EventModel) {
-    this.dialog.open(EventDetail, {
+    this.dialog.open(EventDetailModal, {
       data: event,
-      width: '400px',
+      width: '360px',
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadEvents();
+  }
+
+  loadEvents(): void {
+    this.eventService.list().subscribe((data) => {
+      this.events = data.content;
+      this.dataSource = new MatTableDataSource(this.events);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+  editEvent(event: EventModel) {
+    const dialogRef = this.dialog.open(EventEditModal, {
+      width: '90vw',
+      maxWidth: '745px',
+      data: event
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.eventService.update(result.id, result).subscribe(() => {
+          this.ngOnInit?.();
+        });
+      }
     });
   }
 }

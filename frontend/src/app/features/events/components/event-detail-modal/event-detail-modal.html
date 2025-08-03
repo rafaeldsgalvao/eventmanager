@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Detalhes do Evento {{event.id}}</h2>
 <mat-dialog-content>
   <p><strong>Nome do Evento:</strong> {{ event.title }}</p>
-  <p><strong>Data:</strong> {{ event.eventDate | date: 'fullDate' }}</p>
+  <p><strong>Data:</strong> {{ event.eventDate | date: "dd 'de' MMMM 'de' yyyy" }}</p>
   <p><strong>Local:</strong> {{ event.location }}</p>
   <p><strong>Descrição:</strong>{{ event.description }}</p>
 </mat-dialog-content>
