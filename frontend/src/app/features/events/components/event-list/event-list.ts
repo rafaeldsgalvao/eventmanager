@@ -6,7 +6,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {EventDetailModal} from '../event-detail-modal/event-detail-modal';
@@ -34,6 +34,8 @@ export class EventList {
   displayedColumns: string[] = ['title', 'location', 'eventDate', 'actions'];
   dataSource = new MatTableDataSource<EventModel>();
   events: EventModel[] = [];
+  totalItems = 0;
+  pageSize = 5;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -42,26 +44,23 @@ export class EventList {
     private eventService: EventService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
-  ) {
-    this.eventService.list().subscribe((data) => {
-      this.events = data.content;
-      this.dataSource = new MatTableDataSource(this.events);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.loadEvents();
+    this.loadEvents(0, this.pageSize);
   }
 
-  loadEvents(): void {
-    this.eventService.list().subscribe((data) => {
+  loadEvents(pageIndex: number = 0, pageSize: number = this.pageSize): void {
+    this.eventService.list(pageIndex, pageSize).subscribe((data) => {
       this.events = data.content;
+      this.totalItems = data.totalElements;
       this.dataSource = new MatTableDataSource(this.events);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     });
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.loadEvents(event.pageIndex, event.pageSize);
   }
 
   openDetails(event: EventModel) {

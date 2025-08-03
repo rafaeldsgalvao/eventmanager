@@ -22,8 +22,9 @@ export class EventService {
   private http = inject(HttpClient);
   private readonly baseUrl = 'http://localhost:8080/api/events';
 
-  list(): Observable<Page<EventModel>> {
-    return this.http.get<Page<EventModel>>(this.baseUrl);
+  list(page: number = 0, size: number = 5): Observable<Page<EventModel>> {
+    const params = { page: page.toString(), size: size.toString() };
+    return this.http.get<Page<EventModel>>(this.baseUrl, { params });
   }
 
   getById(id: number): Observable<EventModel> {
