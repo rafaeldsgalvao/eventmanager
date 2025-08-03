@@ -17,7 +17,9 @@
     <!-- Data -->
     <ng-container matColumnDef="eventDate">
       <th mat-header-cell *matHeaderCellDef>Data</th>
-      <td mat-cell *matCellDef="let event">{{ event.eventDate | date:'short' }}</td>
+      <td mat-cell *matCellDef="let event">
+        {{ event.eventDate | date: "dd 'de' MMMM 'de' yyyy" }}
+      </td>
     </ng-container>
 
     <!-- Local -->
@@ -33,7 +35,7 @@
         <button mat-icon-button (click)="openDetails(event)">
           <mat-icon>visibility</mat-icon>
         </button>
-        <button mat-icon-button [routerLink]="['/events', event.id, 'edit']">
+        <button mat-icon-button color="primary" (click)="editEvent(event)">
           <mat-icon>edit</mat-icon>
         </button>
       </td>
