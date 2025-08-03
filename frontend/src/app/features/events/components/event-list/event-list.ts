@@ -52,7 +52,7 @@ export class EventList {
 
   loadEvents(pageIndex: number = 0, pageSize: number = this.pageSize): void {
     this.eventService.list(pageIndex, pageSize).subscribe((data) => {
-      this.events = data.content;
+      this.events = data.content.sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime());
       this.totalItems = data.totalElements;
       this.dataSource = new MatTableDataSource(this.events);
     });
