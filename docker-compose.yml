@@ -1,8 +1,10 @@
 version: '3.8'
 
 services:
-  app:
-    build: .
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: eventmanager_api
     ports:
       - "8080:8080"
@@ -31,8 +33,22 @@ services:
     networks:
       - eventmanager_network
 
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: eventmanager_web
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - eventmanager_network
+
 volumes:
   postgres_data:
+  frontend_build:
 
 networks:
   eventmanager_network:

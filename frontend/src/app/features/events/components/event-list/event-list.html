@@ -1,8 +1,12 @@
-<h2>Lista de Eventos</h2>
-<ul>
-  @for (event of events; track event.id) {
-    <li>
+<div *ngIf="events.length > 0; else noEvents">
+  <h2>Listagem de Eventos</h2>
+  <ul>
+    <li *ngFor="let event of events">
       {{ event.title }} - {{ event.eventDate }}
     </li>
-  }
-</ul>
+  </ul>
+</div>
+
+<ng-template #noEvents>
+  <p>Nenhum evento encontrado.</p>
+</ng-template>

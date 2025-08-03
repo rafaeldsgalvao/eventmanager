@@ -1,6 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {Page} from '../models/page.model';
 
 export interface EventModel {
   id: number;
@@ -21,8 +22,8 @@ export class EventService {
   private http = inject(HttpClient);
   private readonly baseUrl = 'http://localhost:8080/api/events';
 
-  list(): Observable<EventModel[]> {
-    return this.http.get<EventModel[]>(this.baseUrl);
+  list(): Observable<Page<EventModel>> {
+    return this.http.get<Page<EventModel>>(this.baseUrl);
   }
 
   getById(id: number): Observable<EventModel> {

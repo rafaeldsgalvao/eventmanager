@@ -14,7 +14,8 @@ export class EventList {
 
   constructor(private eventService: EventService) {
     this.eventService.list().subscribe((data) => {
-      this.events = data;
+      console.log('Eventos retornados:', data.content);
+      this.events = data.content;
     });
   }
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = {"http://localhost", "http://localhost:4200"})
 @RestController
 @RequestMapping("/api/events")
 public class EventController {
