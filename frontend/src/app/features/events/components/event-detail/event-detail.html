@@ -1,1 +1,10 @@
-<p>event-detail works!</p>
+<h2 mat-dialog-title>Detalhes do Evento {{event.id}}</h2>
+<mat-dialog-content>
+  <p><strong>Nome do Evento:</strong> {{ event.title }}</p>
+  <p><strong>Data:</strong> {{ event.eventDate | date: 'fullDate' }}</p>
+  <p><strong>Local:</strong> {{ event.location }}</p>
+  <p><strong>Descrição:</strong>{{ event.description }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton mat-dialog-close>Fechar</button>
+</mat-dialog-actions>
